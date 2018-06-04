@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mappper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Student">
+
+        <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+        <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+        <result column="student_age" jdbcType="VARCHAR" property="studentAge" />
+        <result column="student_major" jdbcType="VARCHAR" property="studentMajor" />
+        <result column="teacher_id" jdbcType="VARCHAR" property="teacherId" />
+        <result column="student_password" jdbcType="VARCHAR" property="studentPassword" />
+    </resultMap>
+    <insert id="insert" parameterType="com.example.demo.entity.Student">
+        <selectKey keyProperty="studentId" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into student (student_name, student_age, student_major,
+        teacher_id,student_password)
+        values (#{studentName,jdbcType=VARCHAR}, #{studentAge,jdbcType=VARCHAR}, #{studentMajor,jdbcType=VARCHAR},
+        #{teacherId,jdbcType=VARCHAR},#{student_password,jdbcType=VARCHAR})
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select student_id, student_name, student_age, student_major, teacher_id,student_password
+    from student
+  </select>
+
+</mapper>
