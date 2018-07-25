@@ -22,7 +22,7 @@ public class FileSizeInterceptor implements HandlerInterceptor {
            ServletRequestContext ctx=new ServletRequestContext(request);
            long requestSize=ctx.contentLength();
            if (requestSize>maxSize){
-               throw new MyException(""+maxSize/1024/1024+"MB,文件超过规定大小"); //抛出文件太大的异常
+               //throw new MyException(""+maxSize/1024/1024+"MB,文件超过规定大小"); //抛出文件太大的异常
            }
        }
         return true;

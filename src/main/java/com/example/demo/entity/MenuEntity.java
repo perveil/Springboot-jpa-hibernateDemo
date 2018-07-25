@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Table(name = "menu")
 @DynamicUpdate(true)
 @DynamicInsert(true)
+@SelectBeforeUpdate
 public class MenuEntity {
     private long menuId;
     private long supId;

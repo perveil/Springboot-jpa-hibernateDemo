@@ -15,31 +15,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+@RestController
 @RequestMapping("/menu")
 public class menuController {
    @Autowired
    private menuService service;
 
-    // FilterRegistrationBean
-
-  // @ExceptionHandler
-   @RequestMapping(value = "/select",produces="text/plain;charset=UTF-8")
-   @ResponseBody
+   @RequestMapping(value = "/select",produces="text/json;charset=UTF-8")
    public String Select(){
          return JSON.toJSONString(service.select());
    }
 
-    @RequestMapping(value = "/getAllMenus",produces="text/plain;charset=UTF-8")
-    @ResponseBody
+    @RequestMapping(value = "/getAllMenus",produces="text/json;charset=UTF-8")
     public String getAllMenus(){
         return JSON.toJSONString(service.SelectAll());
     }
 
-    @RequestMapping(value = "/insert",produces="text/plain;charset=UTF-8")
-    @ResponseBody
+    @RequestMapping(value = "/insert",produces="text/json;charset=UTF-8")
     public String   insert(String menuName, String menuCode, String url, String supId, String serial,String enabledState , String visibleState, String menuId)
     throws MySQLIntegrityConstraintViolationException{
 
@@ -62,14 +57,12 @@ public class menuController {
     }
 
     @RequestMapping("/delete")
-    @ResponseBody
     public String   delete(String menuId){
            service.delete(Long.parseLong(menuId));
            return  JSON.toJSONString(ResultUtil.Success());
     }
 
     @RequestMapping("/update")
-    @ResponseBody
     public String   update(String menuName, String menuCode, String url, String supId, String serial,String enabledState , String visibleState, String menuId
     ){
         MenuEntity menuEntity=new MenuEntity();
@@ -92,8 +85,7 @@ public class menuController {
 
     }
 
-    @RequestMapping(value = "/getMenuButton",produces="text/plain;charset=UTF-8")
-    @ResponseBody
+    @RequestMapping(value = "/getMenuButton",produces="text/json;charset=UTF-8")
     public  String getMenuButton(String menuId){
        if (menuId.equals("null")||menuId==null){
            return JSON.toJSONString(ResultUtil.fail(-2,"数据格式不匹配,请重新发送menuId"));
@@ -101,8 +93,7 @@ public class menuController {
        return JSON.toJSONString(service.getMenuButton(Long.parseLong(menuId)), SerializerFeature.DisableCircularReferenceDetect);
     }
 
-    @RequestMapping(value = "/updateButton",produces="text/plain;charset=UTF-8")
-    @ResponseBody
+    @RequestMapping(value = "/updateButton",produces="text/json;charset=UTF-8")
     public String updateButton(String menuId,String buttonId){
         String[] buttonIdStringArray=buttonId.split(",");   //解析得到所有的ButtonId
         Long [] buttonIdLongArray=new Long[buttonIdStringArray.length];

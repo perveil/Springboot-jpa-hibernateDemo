@@ -1,8 +1,12 @@
 package com.example.demo.exception;
 
+import com.example.demo.util.ResultEnums;
+
 public class MyException extends Exception {
-     public MyException(String str){
-         super(str);
+    private  int code;
+     public MyException(ResultEnums enums){
+         super(enums.getMessage());
+         this.code=enums.getCode();
      }
 
 }
